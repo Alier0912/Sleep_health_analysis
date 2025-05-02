@@ -278,3 +278,55 @@ FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
 ```
+-----
+
+
+### **Findings:**
+
+#### 1. **Sleep Patterns & Quality**
+- **Average Sleep Duration:** The dataset provides the average sleep duration across all individuals.
+- **Sleep Duration by Age Group:** Sleep duration varies across age groups, with younger individuals (e.g., Gen Z) potentially having different sleep patterns compared to older adults.
+- **Gender Differences in Sleep Duration:** There is a measurable difference in sleep duration between males and females.
+- **Healthy Sleep Percentage:** A percentage of individuals fall within the "healthy" sleep range (7–9 hours).
+- **Correlation Between Sleep Quality and Duration:** There is a correlation coefficient indicating how sleep quality is related to sleep duration.
+- **Age Groups with Poor/Good Sleep Quality:** Specific age groups (e.g., Gen Z, Baby Boomers) may have notably poor or good sleep quality.
+
+#### 2. **Lifestyle & Occupation Impact**
+- **Occupations and Sleep Duration:** Certain occupations have higher or lower average sleep durations, indicating the impact of work-life balance.
+- **Stress and Sleep Quality:** High-stress jobs correlate with poorer sleep quality.
+- **Physical Activity and Sleep Quality:** Higher physical activity levels are associated with better sleep quality.
+- **Daily Steps and Sleep Quality:** There is a relationship between daily step count and sleep quality.
+- **Sedentary Occupations and Sleep Disorders:** People with sedentary jobs may report more sleep disorders.
+
+#### 3. **Health Metrics & Sleep**
+- **BMI and Sleep Quality:** BMI categories (e.g., Underweight, Normal, Overweight, Obese) show varying levels of sleep quality.
+- **Blood Pressure and Sleep Disorders:** Individuals with higher blood pressure are more likely to report sleep disorders such as insomnia or sleep apnea.
+- **Heart Rate and Sleep Quality:** Resting heart rate categories (Low, Normal, High) are linked to sleep quality.
+- **Heart Rate and Sleep Disorders:** Heart rate varies significantly between individuals with and without sleep disorders.
+
+#### 4. **Stress & Mental Health**
+- **Stress and Sleep Quality:** Higher stress levels are associated with poorer sleep quality.
+- **Stress and Sleep Disorders:** High-stress individuals are more likely to report sleep disorders like insomnia.
+- **Physical Activity Mitigating Stress:** Physical activity helps mitigate the impact of stress on sleep quality.
+
+---
+
+### **Recommendations:**
+
+#### 1. **Improving Sleep Patterns**
+- Encourage individuals to aim for 7–9 hours of sleep per night, especially for those in age groups or occupations with lower average sleep durations.
+- Promote awareness of gender-specific sleep needs and provide tailored recommendations.
+
+#### 2. **Lifestyle Adjustments**
+- Advocate for work-life balance in high-stress occupations to improve sleep quality.
+- Encourage regular physical activity to enhance sleep quality and mitigate stress.
+- Promote walking or other activities to increase daily step counts, especially for sedentary individuals.
+
+#### 3. **Health Interventions**
+- Monitor and manage BMI and blood pressure levels to reduce the risk of sleep disorders.
+- Provide targeted interventions for individuals with high resting heart rates to improve sleep quality.
+
+#### 4. **Stress Management**
+- Implement stress management programs, such as mindfulness or relaxation techniques, to improve sleep quality.
+- Encourage physical activity as a natural way to reduce stress and improve sleep.
+
