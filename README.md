@@ -4,7 +4,7 @@
 
 
 
-sql
+```sql
 CREATE TABLE sleep_dataset
 (person_id INT PRIMARY KEY,
 gender VARCHAR(100),
@@ -20,13 +20,14 @@ heart_rate INT,
 daily_steps INT,
 sleep_disorder VARCHAR(100)
 );
-'''
+```
 
 -- E.D.A
-
+```sql
 SELECT * FROM sleep_dataset
-
+```
 -- Check for missing values and nulls
+```sql
 SELECT * FROM sleep_dataset
 WHERE person_id IS NULL
 OR gender IS NULL
@@ -41,20 +42,20 @@ OR blood_pressure IS NULL
 OR heart_rate IS NULL
 OR daily_steps IS NULL
 OR sleep_disorder IS NULL;
+```
+*our dataset has no null values*
 
--- our dataset has no null values
+**ANALYSIS**
 
--- ANALYSIS
-
---1. Sleep Patterns & Quality
---a)What is the average sleep duration across the dataset?
-
+1. Sleep Patterns & Quality
+a)What is the average sleep duration across the dataset?
+```sql
 SELECT
      AVG(sleep_duration) AS average_sleep_duration
      FROM sleep_dataset
-
---b)How does sleep duration vary by age group?
-
+```
+b)How does sleep duration vary by age group?
+```sql
 SELECT
        CASE 
        WHEN age between 10 AND 27 THEN 'Gen Z'
@@ -65,11 +66,11 @@ SELECT
          ROUND(AVG(sleep_duration::integer),2) AS average_sleep_duration
 FROM sleep_dataset
 GROUP BY age_group
+```
 
 
-
---c)Is there a difference in sleep duration between genders?
-
+c)Is there a difference in sleep duration between genders?
+```sql
 WITH gender_sleep AS 
 (
 SELECT 
@@ -83,20 +84,22 @@ SELECT
       MAX(CASE WHEN gender = 'Female' THEN average_sleep_duration END) -
         MAX(CASE WHEN gender = 'Male' THEN average_sleep_duration END) AS sleep_duration_difference
 FROM gender_sleep
-
---d)What percentage of people get "healthy" sleep (e.g., 7–9 hours)?
-
+```
+d)What percentage of people get "healthy" sleep (e.g., 7–9 hours)?
+```sql
 SELECT
       ROUND(COUNT(CASE WHEN sleep_duration BETWEEN 7 AND 9 THEN 1 END) * 100.0 / COUNT(*),2)
        AS healthy_sleep_percentage
 FROM sleep_dataset
-
---e)How does sleep quality correlate with sleep duration?
+```
+e)How does sleep quality correlate with sleep duration?
+```sql
 SELECT
     CORR(sleep_duration, quality_of_sleep) AS correlation_coefficient
 FROM sleep_dataset
-
---f)Are there specific age groups with notably poor/good sleep quality?
+```
+f)Are there specific age groups with notably poor/good sleep quality?
+```sql
 WITH age_sleep_quality AS 
 (
 SELECT
@@ -122,34 +125,38 @@ SELECT
     sleep_quality_category
 FROM age_sleep_quality
 WHERE sleep_quality_category = 'Poor Sleep ' OR sleep_quality_category = 'Good Sleep '
+```
 
-
---2. Lifestyle & Occupation Impact
---a)Which occupations have the highest/lowest average sleep duration?
+**2. Lifestyle & Occupation Impact**
+a)Which occupations have the highest/lowest average sleep duration?
+```sql
 SELECT
     occupation,
     ROUND(AVG(sleep_duration::integer),2) AS average_sleep_duration
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC
-
---b)Do high-stress jobs correlate with poorer sleep quality?
+```
+b)Do high-stress jobs correlate with poorer sleep quality?
+```sql
 SELECT
      occupation,
      ROUND(AVG(stress_level),2) AS average_stress_level,
      ROUND(AVG(quality_of_sleep),2) AS average_sleep_quality
 FROM sleep_dataset
 GROUP BY 1
-
---C)How does physical activity level affect sleep quality?
+```
+C)How does physical activity level affect sleep quality?
+```sql
 SELECT
     physical_activity_level,
     ROUND(AVG(quality_of_sleep),2) AS average_sleep_quality
     FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
-
---d)Is there a relationship between daily step count and sleep quality?
+```
+d)Is there a relationship between daily step count and sleep quality?
+```sql
 WITH daily_steps_sleep 
 AS 
 (
@@ -174,24 +181,27 @@ SELECT
 FROM daily_steps_sleep
 GROUP BY 1
 ORDER BY 2 DESC, 2 DESC
+```
 
-
---e)Do people with sedentary occupations report more sleep disorders?
+e)Do people with sedentary occupations report more sleep disorders?
+```sql
 SELECT
        occupation,
      sleep_disorder
 FROM sleep_dataset
-
---3. Health Metrics & Sleep
---f)How does BMI category (Underweight/Normal/Overweight/Obese) relate to sleep quality?
+```
+**3. Health Metrics & Sleep**
+f)How does BMI category (Underweight/Normal/Overweight/Obese) relate to sleep quality?
+```sql
 SELECT
     bmi_category,
     ROUND(AVG(quality_of_sleep),2) AS average_sleep_quality
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
-
---g)Do individuals with higher blood pressure report more sleep disorders?
+```
+g)Do individuals with higher blood pressure report more sleep disorders?
+```sql
 WITH blood_pressure_sleep AS 
 (
 SELECT
@@ -214,9 +224,10 @@ FROM blood_pressure_sleep
 WHERE sleep_disorder IN ('Insomnia', 'Sleep Apnea', 'Restless Legs Syndrome')
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
+```
 
-
---h)Is there a link between resting heart rate and sleep quality?
+h)Is there a link between resting heart rate and sleep quality?
+```sql
 SELECT
     CASE
         WHEN heart_rate < 60 THEN 'Low'
@@ -226,26 +237,29 @@ SELECT
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
+```
 
-
---i)Does heart rate vary significantly between those with/without sleep disorders?
+i)Does heart rate vary significantly between those with/without sleep disorders?
+```sql
 SELECT
      sleep_disorder,
         ROUND(AVG(heart_rate),2) AS average_heart_rate
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
-
---4. Stress & Mental Health
---j)How does self-reported stress level correlate with sleep quality?
+```
+**4. Stress & Mental Health**
+j)How does self-reported stress level correlate with sleep quality?
+```sql
 SELECT
       stress_level,
         ROUND(AVG(quality_of_sleep),2) AS average_sleep_quality
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
-
---k)Are high-stress individuals more likely to have sleep disorders (e.g., insomnia)?
+```
+k)Are high-stress individuals more likely to have sleep disorders (e.g., insomnia)?
+```sql
 SELECT
       sleep_disorder,
         ROUND(AVG(stress_level),2) AS average_stress_level,
@@ -253,8 +267,9 @@ SELECT
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
-
---l)Does physical activity mitigate the impact of stress on sleep?
+```
+l)Does physical activity mitigate the impact of stress on sleep?
+```sql
 SELECT
     physical_activity_level,
     ROUND(AVG(stress_level),2) AS average_stress_level,
@@ -262,4 +277,4 @@ SELECT
 FROM sleep_dataset
 GROUP BY 1
 ORDER BY 2 DESC, 1 DESC
-
+```
